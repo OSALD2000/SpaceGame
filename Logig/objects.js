@@ -108,7 +108,7 @@ function Ship(x, y, power, weapon_power  ) {
   this.trigger =false;
 
   this.loaded = false;
-  this.weapon_reload_time = 0.25; // seconds
+  this.weapon_reload_time = 0.125; // seconds
   this.time_until_reloaded = this.weapon_reload_time;
   this.weapon_power = weapon_power || 200;
 
@@ -154,7 +154,7 @@ Ship.prototype.update = function(elapsed) {
 
 Ship.prototype.projectile = function(elapsed) {
   this.time_until_reloaded = this.weapon_reload_time;
-  var p = new Projectile(0.025, 1,
+  var p = new Projectile(0.025, 2,
     this.x + Math.cos(this.angle) * this.radius,
     this.y + Math.sin(this.angle) * this.radius,
     this.x_speed,

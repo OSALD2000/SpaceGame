@@ -1,10 +1,9 @@
 var game;
-let scourCtx;
-let levelCtx; 
+let gameOverSound = new Audio('../sounds/gameOver.wav');
 window.onload=function(){
     game  = new AsteroidsGame('asteroids');
 
-  
+ 
 }
 
 var AsteroidsGame = function(id) {
@@ -119,7 +118,6 @@ AsteroidsGame.prototype.keyDown = function(e) {
   
   AsteroidsGame.prototype.key_handler = function(e, value) {
     var nothing_handled = false;
-    console.log(e.key , e.keyCode);
     switch(e.key || e.keyCode) {
       case "a":
       case 65: 
@@ -225,6 +223,7 @@ AsteroidsGame.prototype.draw = function() {
     else if(this.game_over && this.message_print) {
         this.message.draw(this.c, "GAME OVER", "Press space to play again");
         this.message_print=false;
+        gameOverSound.play();
         return;
     }
     else if(this.win  && !this.message_on){
