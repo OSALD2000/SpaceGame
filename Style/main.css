@@ -1,0 +1,49 @@
+body {
+    width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    background-image: url("../resourse/space3.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; 
+    font-family: sans-serif;
+}
+h1{
+    font-size: 40px;
+}
+
+
+.continer{
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    grid-template-columns: 350px 850px 350px;
+    column-gap: 25px;
+    width: 100%;
+}
+#asteroids {
+    grid-row:2;
+    background-color: black;
+    border: 1px white solid;
+}
+#asteroids:focus{
+    border:2px white solid;
+}
+.scour{
+    grid-row: 1;
+    grid-column: 3 ;
+}
+.level{
+    grid-row: 1;
+    grid-column: 1;
+}
+.title{
+    grid-row: 1;
+    grid-column: 2 ;
+    text-align: center;
+}
+.asteroid{
+    grid-row:2;
+}
+.ship{
+    grid-row:2;
+}
