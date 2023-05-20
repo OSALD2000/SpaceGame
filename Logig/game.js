@@ -119,25 +119,38 @@ AsteroidsGame.prototype.keyDown = function(e) {
   
   AsteroidsGame.prototype.key_handler = function(e, value) {
     var nothing_handled = false;
+    console.log(e.key , e.keyCode);
     switch(e.key || e.keyCode) {
+      case "a":
+      case 65: 
       case "ArrowLeft":
-      case 37: // left arrow            
+      case 37:           
         this.ship.left_thruster = value;
         break;
+
+      case "w":
+      case 87: 
       case "ArrowUp":
-      case 38: // up arrow            
+      case 38:            
         this.ship.thruster_on = value;
         break;
+
+      case "d":
+      case 68:
       case "ArrowRight":
-      case 39: // right arrow            
+      case 39:           
         this.ship.right_thruster = value;
         break;
+
+      case "s":
+      case 83:
       case "ArrowDown":
       case 40:
         this.ship.retro_on = value;
         break;
+
       case " ":
-      case 32: //spacebar
+      case 32: 
         if(this.game_over || this.win) {
             console.log("raweras");
             this.reset_game();
