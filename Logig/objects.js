@@ -8,60 +8,64 @@ function extend(ChildClass, ParentClass){
 
 // Mass :
 
-function Mass( mass, radius,x, y, angle, x_speed, y_speed, rotation_speed){
-  this.x = x;
-  this.y = y;
-  this.mass = mass || 1;
-  this.radius = radius || 50;
-  this.angle = angle || 0;
-  this.x_speed = x_speed || 0;
-  this.y_speed = y_speed || 0;
-  this.rotation_speed = rotation_speed || 0;
+class Mass{
+  constructor(x,y,mass,radius,angle,x_speed,y_speed,rotation_speed){
+    this.x=x,
+    this.y=y,
+    this.mass=mass,
+    this.radius=radius,
+    this.angle=angle,
+    this.x_speed=x_speed,
+    this.y_speed=y_speed,
+    this.rotation_speed=rotation_speed
+  }
+
+  update(elapsed, ctx){
+    this.x += this.x_speed*elapsed;
+    this.y += this.y_speed*elapsed;
+
+    this.angle += this.rotation_speed*elapsed;
+    this.angle %= (2* Math.PI);
+
+    if(this.x-this.radius > ctx.canvas.width){
+     this.x = this.radius;
+    }
+
+    if(this.x-this.radius < 0){
+       this.x = ctx.canvas.width + this.radius;
+    }
+
+
+    if(this.y-this.radius > ctx.canvas.height){
+      this.y = this.radius;
+    }
+
+    if(this.y-this.radius < 0){
+     this.y = ctx.canvas.height - this.radius;
+    }
+  }
+
+  push(angle, force, elapsed){
+    this.x_speed += elapsed *(Math.cos(angle) * force)/this.mass;
+    this.y_speed += elapsed *(Math.sin(angle) * force)/this.mass;
+  }
+
+  twist(force, elapsed){
+    this.rotation_speed += elapsed * force / this.mass;
+  }
+
+  speed(){
+    return Math.sqrt(Math.pow(this.x_speed,2) + Math.pow(this.y_speed,2));
+  }
+
+  movment_angle(){
+    return Math.atan2(this.y_speed, this.x_speed);
+  }
 }
 
-Mass.prototype.update = function(elapsed, ctx){
-     this.x += this.x_speed*elapsed;
-     this.y += this.y_speed*elapsed;
-
-     this.angle += this.rotation_speed*elapsed;
-     this.angle %= (2* Math.PI);
-
-     if(this.x-this.radius > ctx.canvas.width){
-      this.x = this.radius;
-     }
-
-     if(this.x-this.radius < 0){
-        this.x = ctx.canvas.width + this.radius;
-     }
-
-
-     if(this.y-this.radius > ctx.canvas.height){
-       this.y = this.radius;
-     }
-
-     if(this.y-this.radius < 0){
-      this.y = ctx.canvas.height - this.radius;
-     }
+class Asteroid extends Mass{
+  
 }
-
-// 2. Newtons Law:
-Mass.prototype.push= function(angle, force, elapsed){
-  this.x_speed += elapsed *(Math.cos(angle) * force)/this.mass;
-  this.y_speed += elapsed *(Math.sin(angle) * force)/this.mass;
-}
-
-Mass.prototype.twist = function(force, elapsed){
-  this.rotation_speed += elapsed * force / this.mass;
-}
-
-Mass.prototype.speed = function(){
-  return Math.sqrt(Math.pow(this.x_speed,2) + Math.pow(this.y_speed,2));
-}
-
-Mass.prototype.movment_angle = function(){
-  return Math.atan2(this.y_speed, this.x_speed);
-}
-
 
 function Asteroid(mass, x, y, x_speed, y_speed, rotation_speed) {
   var density = 1; // kg per square pixel
