@@ -7,7 +7,6 @@ function extend(ChildClass, ParentClass){
 }
 
 // Mass :
-
 function Mass( mass, radius,x, y, angle, x_speed, y_speed, rotation_speed){
   this.x = x;
   this.y = y;
@@ -44,7 +43,6 @@ Mass.prototype.update = function(elapsed, ctx){
      }
 }
 
-// 2. Newtons Law:
 Mass.prototype.push= function(angle, force, elapsed){
   this.x_speed += elapsed *(Math.cos(angle) * force)/this.mass;
   this.y_speed += elapsed *(Math.sin(angle) * force)/this.mass;
@@ -57,11 +55,6 @@ Mass.prototype.twist = function(force, elapsed){
 Mass.prototype.speed = function(){
   return Math.sqrt(Math.pow(this.x_speed,2) + Math.pow(this.y_speed,2));
 }
-
-Mass.prototype.movment_angle = function(){
-  return Math.atan2(this.y_speed, this.x_speed);
-}
-
 
 function Asteroid(mass, x, y, x_speed, y_speed, rotation_speed) {
   var density = 1; // kg per square pixel
@@ -142,6 +135,7 @@ Ship.prototype.update = function(elapsed) {
   if(!this.loaded) {
     this.time_until_reloaded -= Math.min(elapsed, this.time_until_reloaded);
   }
+  
   this.push(this.angle, (this.thruster_on - this.retro_on) * this.thruster_power, elapsed);
   this.twist((this.right_thruster - this.left_thruster) * this.steering_power, elapsed);
   
